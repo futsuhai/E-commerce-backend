@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\futsuhai\\Desktop\\server\\e-commerce-server\\e-commerce-server.csproj": {}
+    "C:\\Users\\futsuhai\\Documents\\GitHub\\E-commerce-backend\\server\\e-commerce-server\\e-commerce-server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\futsuhai\\Desktop\\server\\e-commerce-server\\e-commerce-server.csproj": {
+    "C:\\Users\\futsuhai\\Documents\\GitHub\\E-commerce-backend\\server\\e-commerce-server\\e-commerce-server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\futsuhai\\Desktop\\server\\e-commerce-server\\e-commerce-server.csproj",
+        "projectUniqueName": "C:\\Users\\futsuhai\\Documents\\GitHub\\E-commerce-backend\\server\\e-commerce-server\\e-commerce-server.csproj",
         "projectName": "e-commerce-server",
-        "projectPath": "C:\\Users\\futsuhai\\Desktop\\server\\e-commerce-server\\e-commerce-server.csproj",
+        "projectPath": "C:\\Users\\futsuhai\\Documents\\GitHub\\E-commerce-backend\\server\\e-commerce-server\\e-commerce-server.csproj",
         "packagesPath": "C:\\Users\\futsuhai\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\futsuhai\\Desktop\\server\\e-commerce-server\\obj\\",
+        "outputPath": "C:\\Users\\futsuhai\\Documents\\GitHub\\E-commerce-backend\\server\\e-commerce-server\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\futsuhai\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -42,6 +42,10 @@
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[7.0.9, )"
+            },
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[2.22.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

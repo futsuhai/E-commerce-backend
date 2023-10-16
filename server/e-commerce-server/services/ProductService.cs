@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace e_commerce_server
 {
-    public class ProductService
+    public class ProductService : IProductService
     {
         private List<Product> _products;
 
@@ -75,9 +75,34 @@ namespace e_commerce_server
             };
         }
 
-        public IEnumerable<Product> GetProducts()
+        public Task<IList<Product>> GetAll()
         {
-            return _products;
+            return Task.FromResult<IList<Product>>(_products);
+        }
+
+        public Task<Product> Get(int id)
+        {
+            var product = _products.FirstOrDefault(p => p.Id == id);
+            if (product == null)
+            {
+                throw new NotImplementedException();
+            }
+             return Task.FromResult(product);
+        }
+
+        public Task Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Update(Product item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Create(int id, Product item)
+        {
+            throw new NotImplementedException();
         }
     }
 }
