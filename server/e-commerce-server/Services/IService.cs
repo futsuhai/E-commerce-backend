@@ -1,12 +1,12 @@
 public interface IService<T> where T : class
 {
-    public Task<IList<T>> GetAll();
+    public Task<IList<T>> GetAllAsync();
 
-    public Task<T> Get(int id);
+    public Task<T> GetAsync(Guid id);
 
-    public Task Delete(int id);
+    public Task DeleteAsync(Guid id);
 
-    public Task Create(int id, T item);
+    public Task CreateAsync(T item);
 
-    public Task Update(T item);
+    public Task UpdateAsync(Guid id, T item);
 }
