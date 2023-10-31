@@ -12,9 +12,11 @@ builder.Services.AddSwaggerGen();
 
 //repositories
 builder.Services.AddSingleton<IProductRepository, ProductRepository>();
+builder.Services.AddSingleton<IAccountRepository, AccountRepository>();
 
 // services
 builder.Services.AddSingleton<IProductService, ProductService>();
+builder.Services.AddSingleton<IAccountService, AccountService>();
 
 builder.Services.AddControllers();
 

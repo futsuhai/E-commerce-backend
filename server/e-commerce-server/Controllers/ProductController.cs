@@ -12,8 +12,7 @@ public class ProductController : ControllerBase
 
     public ProductController(
         ILogger<ProductController> logger,
-         IProductService productService
-         )
+         IProductService productService)
     {
         _logger = logger;
         _productService = productService;
@@ -40,7 +39,7 @@ public class ProductController : ControllerBase
         return Ok("Продукт добавлен");
     }
 
-    [HttpPost("DeleteProduct/{productId}")]
+    [HttpDelete("DeleteProduct/{productId}")]
     public async Task<IActionResult> DeleteProduct(Guid productId)
     {
         await _productService.DeleteAsync(productId);
