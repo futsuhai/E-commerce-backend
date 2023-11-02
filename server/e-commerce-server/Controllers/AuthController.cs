@@ -12,14 +12,22 @@ public class AuthController : ControllerBase
 
     public AuthController(
         ILogger<ProductController> logger,
-         IAccountService accountService)
+        IAccountService accountService)
     {
         _logger = logger;
         _accountService = accountService;
     }
 
+    [HttpPost("Auth")]
+    public async Task<IActionResult> Login([FromBody] Account account)
+    {
+        //await _accountService.Login(account);
+        return Ok("Успешная авторизация");
+    }
+
     [HttpPost("Register")]
-    public async Task<IActionResult> Register([FromBody] Account account){
+    public async Task<IActionResult> Register([FromBody] Account account)
+    {
         await _accountService.CreateAsync(account);
         return Ok("Регистрация успешна");
     }
