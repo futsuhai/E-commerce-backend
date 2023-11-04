@@ -1,4 +1,8 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace e_commerce_server.Controllers;
 
@@ -8,28 +12,57 @@ public class AuthController : ControllerBase
 {
 
     private readonly IAccountService _accountService;
-    private readonly ILogger<ProductController> _logger;
+    private readonly IMapper _mapper;
+    private readonly ILogger<AuthController> _logger;
 
     public AuthController(
-        ILogger<ProductController> logger,
-        IAccountService accountService)
+        ILogger<AuthController> logger,
+        IAccountService accountService,
+        IMapper mapper)
     {
         _logger = logger;
         _accountService = accountService;
+        _mapper = mapper;
     }
 
     [HttpPost("Auth")]
-    public async Task<IActionResult> Login([FromBody] Account account)
+    public async Task<IResult> Login([FromBody] AccountModel accountModel)
     {
-        //await _accountService.Login(account);
-        return Ok("Успешная авторизация");
+        var account = await _accountService.LoginAsync(accountModel.Login, accountModel.Password);
+        if (account == null)
+        {
+            return Results.Unauthorized();
+        }
+        var token = GetJwtToken(accountModel.Login);
+        var loginedAccount = _mapper.Map<AccountModel>(account);
+        var response = new
+        {
+            acces_token = token,
+            account = loginedAccount
+        };
+        return Results.Json(response);
     }
 
     [HttpPost("Register")]
-    public async Task<IActionResult> Register([FromBody] Account account)
+    public async Task<IActionResult> Register([FromBody] AccountModel accountModel)
     {
+        var account = _mapper.Map<Account>(accountModel);
         await _accountService.CreateAsync(account);
-        return Ok("Регистрация успешна");
+        var token = GetJwtToken(account.Login);
+        return Ok(token);
     }
 
+    private static string GetJwtToken(string login)
+    {
+        var claims = new List<Claim>() { new(ClaimTypes.Name, login) };
+        var jwt = new JwtSecurityToken(
+            issuer: JwtOptions.Issuer,
+            audience: JwtOptions.Audience,
+            claims: claims,
+            expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(60)),
+            signingCredentials: new(JwtOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256)
+        );
+        var token = new JwtSecurityTokenHandler().WriteToken(jwt);
+        return token;
+    }
 }

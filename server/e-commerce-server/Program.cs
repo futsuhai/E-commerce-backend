@@ -15,6 +15,7 @@ builder.Services.AddSingleton<IProductRepository, ProductRepository>();
 builder.Services.AddSingleton<IAccountRepository, AccountRepository>();
 
 // services
+builder.Services.AddAutoMapper(typeof(AppMappingProfile));
 builder.Services.AddSingleton<IProductService, ProductService>();
 builder.Services.AddSingleton<IAccountService, AccountService>();
 

@@ -1,3 +1,4 @@
+using AutoMapper;
 using e_commerce_server;
 
 public class AccountService : IAccountService
@@ -6,11 +7,26 @@ public class AccountService : IAccountService
 
     public AccountService(
         IAccountRepository accountRepository
-    //mapper
     )
     {
         _accountRepository = accountRepository;
-        //mapper
+    }
+
+    public async Task<Account?> LoginAsync(string login, string password)
+    {
+        var accounts = await _accountRepository.GetAllAsync();
+        var account = accounts.FirstOrDefault(a => a.Login == login);
+        if (account == null)
+        {
+            return null;
+        }
+        return account;
+    }
+    public async Task<Account?> GetAccountByLoginAsync(string login)
+    {
+        var accounts = await _accountRepository.GetAllAsync();
+        var account = accounts.FirstOrDefault(a => a.Login == login);
+        return account;
     }
 
     public async Task<IList<Account>> GetAllAsync() =>
