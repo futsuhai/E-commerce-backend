@@ -4,9 +4,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.Configure<DatabaseOptions>(
-    builder.Configuration.GetSection("DatabaseOptions"));
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -14,8 +11,15 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IProductRepository, ProductRepository>();
 builder.Services.AddSingleton<IAccountRepository, AccountRepository>();
 
-// services
+// consts
+builder.Services.AddSingleton<AppConsts>();
+// mapper
 builder.Services.AddAutoMapper(typeof(AppMappingProfile));
+// options
+builder.Services.Configure<DatabaseOptions>(
+    builder.Configuration.GetSection("DatabaseOptions"));
+builder.Services.AddSingleton<CryptoOptions>();
+// services
 builder.Services.AddSingleton<IProductService, ProductService>();
 builder.Services.AddSingleton<IAccountService, AccountService>();
 

@@ -12,7 +12,7 @@ public class AccountService : IAccountService
         _accountRepository = accountRepository;
     }
 
-    public async Task<Account?> LoginAsync(string login, string password)
+    public async Task<Account?> LoginAsync(string login)
     {
         var accounts = await _accountRepository.GetAllAsync();
         var account = accounts.FirstOrDefault(a => a.Login == login);
